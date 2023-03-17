@@ -1,0 +1,536 @@
+generator: cti2yaml
+cantera-version: 2.6.0a4
+date: Thu, 26 Jan 2023 15:42:50 -0500
+input-files: [Multifacet_mechanism.cti]
+
+units: {length: cm, quantity: mol, activation-energy: kJ/mol}
+
+elements:
+- symbol: Ci
+  atomic-weight: 13.003
+- symbol: D
+  atomic-weight: 2.014
+- symbol: Oi
+  atomic-weight: 18.0
+- symbol: T
+  atomic-weight: 3.016
+- symbol: X
+  atomic-weight: 195.083
+
+phases:
+- name: gas
+  thermo: ideal-gas
+  elements: [H, D, T, C, Ci, O, Oi, N, Ne, Ar, He, Si, S, Cl, X]
+  species: [Ar, He, CO2, H2, CO, O2]
+  kinetics: gas
+  reactions: none
+  transport: mixture-averaged
+  state:
+    T: 300.0
+    P: 1.01325e+05
+- name: surface1
+  thermo: ideal-surface
+  elements: [H, D, T, C, Ci, O, Oi, N, Ne, Ar, He, Si, S, Cl, X]
+  species: [site(111), O(111), OC(111), C(111), CO2(111), H(111)]
+  kinetics: surface
+  reactions: [surface1-reactions]
+  state:
+    T: 300.0
+    P: 1.01325e+05
+  reference-state-coverage: 0.11
+  adjacent-phases: [gas]
+  site-density: 3.16e-09
+- name: surface2
+  thermo: ideal-surface
+  elements: [H, D, T, C, Ci, O, Oi, N, Ne, Ar, He, Si, S, Cl, X]
+  species: [site(211), O(211), OC(211), C(211), CO2(211), H(211)]
+  kinetics: surface
+  reactions: [surface2-reactions]
+  state:
+    T: 300.0
+    P: 1.01325e+05
+  reference-state-coverage: 0.11
+  adjacent-phases: [gas]
+  site-density: 3.36e-09
+- name: surface3
+  thermo: ideal-surface
+  elements: [H, D, T, C, Ci, O, Oi, N, Ne, Ar, He, Si, S, Cl, X]
+  species: [site(100), O(100), OC(100), C(100), CO2(100), H(100)]
+  kinetics: surface
+  reactions: [surface3-reactions]
+  state:
+    T: 300.0
+    P: 1.01325e+05
+  reference-state-coverage: 0.11
+  adjacent-phases: [gas]
+  site-density: 2.74e-09
+- name: surface4
+  thermo: ideal-surface
+  elements: [H, D, T, C, Ci, O, Oi, N, Ne, Ar, He, Si, S, Cl, X]
+  species: [site(110), O(110), OC(110), C(110), CO2(110), H(110)]
+  kinetics: surface
+  reactions: [surface4-reactions]
+  state:
+    T: 300.0
+    P: 1.01325e+05
+  reference-state-coverage: 0.11
+  adjacent-phases: [gas]
+  site-density: 1.94e-09
+- name: edge12
+  thermo: edge
+  adjacent-phases: [gas, surface1, surface2]
+  elements: [H, D, T, C, Ci, O, Oi, N, Ne, Ar, He, Si, S, Cl, X]
+  species: [(tpb)]
+  kinetics: edge
+  reactions: [edge12-reactions]
+  state:
+    T: 300.0
+    P: 1.01325e+05
+    coverages: {(tpb): 1.0}
+  site-density: 1.94e-9  
+- name: edge23
+  thermo: edge
+  adjacent-phases: [gas, surface2, surface3]
+  elements: [H, D, T, C, Ci, O, Oi, N, Ne, Ar, He, Si, S, Cl, X]
+  species: [(tpb)]
+  kinetics: edge
+  reactions: [edge23-reactions]
+  state:
+    T: 300.0
+    P: 1.01325e+05
+    coverages: {(tpb): 1.0}
+  site-density: 1.94e-9
+
+species:
+- name: (tpb)
+  composition: {}
+  thermo:
+    model: constant-cp
+  note: dummy species
+- name: Ar
+  composition: {Ar: 1}
+  thermo:
+    model: NASA7
+    temperature-ranges: [200.0, 1000.0, 6000.0]
+    data:
+    - [2.5, 0.0, 0.0, 0.0, 0.0, -745.375, 4.37967]
+    - [2.5, 0.0, 0.0, 0.0, 0.0, -745.375, 4.37967]
+  transport:
+    model: gas
+    geometry: atom
+    diameter: 3.33
+    well-depth: 136.5
+- name: He
+  composition: {He: 1}
+  thermo:
+    model: NASA7
+    temperature-ranges: [200.0, 1000.0, 6000.0]
+    data:
+    - [2.5, 0.0, 0.0, 0.0, 0.0, -745.375, 0.928724]
+    - [2.5, 0.0, 0.0, 0.0, 0.0, -745.375, 0.928724]
+  transport:
+    model: gas
+    geometry: atom
+    diameter: 2.576
+    well-depth: 10.2
+- name: H2
+  composition: {H: 2}
+  thermo:
+    model: NASA7
+    temperature-ranges: [200.0, 1000.0, 6000.0]
+    data:
+    - [2.37694204, 7.73916922e-03, -1.88735073e-05, 1.95517114e-08, -7.17095663e-12,
+      -921.173081, 0.547184736]
+    - [2.90207649, 8.68992581e-04, -1.6586443e-07, 1.90851899e-11, -9.31121789e-16,
+      -797.948726, -0.84559132]
+  transport:
+    model: gas
+    geometry: linear
+    diameter: 2.92
+    well-depth: 38.0
+    polarizability: 0.79
+    rotational-relaxation: 280.0
+  note: ATcT3E
+- name: CO2
+  composition: {C: 1, O: 2}
+  thermo:
+    model: NASA7
+    temperature-ranges: [200.0, 1000.0, 6000.0]
+    data:
+    - [2.20664321, 0.0100970086, -9.96338809e-06, 5.47155623e-09, -1.27733965e-12,
+      -4.83529864e+04, 10.5261943]
+    - [4.6353747, 2.74559459e-03, -9.98282389e-07, 1.61013606e-10, -9.22018642e-15,
+      -4.90203677e+04, -1.9288763]
+  transport:
+    model: gas
+    geometry: linear
+    diameter: 3.763
+    well-depth: 244.0
+    polarizability: 2.65
+    rotational-relaxation: 2.1
+  note: ATcT3E
+- name: CO
+  composition: {C: 1, O: 1}
+  thermo:
+    model: NASA7
+    temperature-ranges: [200.0, 1000.0, 6000.0]
+    data:
+    - [3.59508377, -7.21196937e-04, 1.28238234e-06, 6.52429293e-10, -8.21714806e-13,
+      -1.43448968e+04, 3.44355598]
+    - [3.03397274, 1.37328118e-03, -4.96445087e-07, 8.10281447e-11, -4.85331749e-15,
+      -1.42586044e+04, 6.10076092]
+  transport:
+    model: gas
+    geometry: linear
+    diameter: 3.65
+    well-depth: 98.1
+    polarizability: 1.95
+    rotational-relaxation: 1.8
+  note: ATcT3E
+- name: O2
+  composition: {O: 2}
+  thermo:
+    model: NASA7
+    temperature-ranges: [200.0, 1000.0, 6000.0]
+    data:
+    - [3.78498258, -3.02002233e-03, 9.92029171e-06, -9.77840434e-09, 3.28877702e-12,
+      -1064.13589, 3.64780709]
+    - [3.65980488, 6.59877372e-04, -1.44158172e-07, 2.14656037e-11, -1.36503784e-15,
+      -1216.03048, 3.42074148]
+  transport:
+    model: gas
+    geometry: linear
+    diameter: 3.458
+    well-depth: 107.4
+    polarizability: 1.6
+    rotational-relaxation: 3.8
+  note: ATcT3E
+- name: site(111)
+  composition: {}
+  thermo:
+    model: NASA7
+    temperature-ranges: [100.0, 1000.0, 5000.0]
+    data:
+    - [0, 0, 0, 0, 0, 0, 0]
+    - [0, 0, 0, 0, 0, 0, 0]
+- name: O(111)
+  composition: {O: 1}
+  thermo:
+    model: NASA7
+    temperature-ranges: [300.0, 1000.0, 2000.0]
+    data:
+    - [-0.307842697, 0.0144283015, -2.60985084e-05, 2.18400287e-08, -6.95347599e-12,
+      -2.681872782183674e+04, -0.127377486]
+    - [2.90105106, -3.44590435e-04, 6.54399143e-07, -3.72524694e-10, 7.01680708e-14,
+      -2.7410401921836736e+04, -15.2489186]
+- name: OC(111)
+  composition: {C: 1, O: 1}
+  thermo:
+    model: NASA7
+    temperature-ranges: [300.0, 1000.0, 2000.0]
+    data:
+    - [2.95598323, 7.63715002e-03, -1.08766704e-05, 8.66270717e-09, -2.83279476e-12,
+      -3.006949557850165e+04, -13.7450329]
+    - [5.53635466, -1.49964996e-03, 2.74741657e-06, -1.51690626e-09, 2.79160302e-13,
+      -3.070031697850165e+04, -26.629635]
+- name: C(111)
+  composition: {C: 1}
+  thermo:
+    model: NASA7
+    temperature-ranges: [300.0, 1000.0, 2000.0]
+    data:
+    - [-1.51508949, 0.0187374633, -3.27320487e-05, 2.67098141e-08, -8.34606342e-12,
+      1.454787524333509e+04, 5.18140244]
+    - [2.84498222, -5.64156015e-04, 1.06350659e-06, -6.03815152e-10, 1.13558039e-13,
+      1.370991104333509e+04, -15.5434266]
+- name: CO2(111)
+  composition: {C: 1, O: 2}
+  thermo:
+    model: NASA7
+    temperature-ranges: [300.0, 1000.0, 2000.0]
+    data:
+    - [2.62346054, 0.0115679679, -1.38786726e-05, 9.51541713e-09, -2.77848057e-12,
+      -4.7593339500338385e+04, -3.74559759]
+    - [7.0362954, -2.92104538e-03, 5.303691e-06, -2.89846189e-09, 5.2921327e-13,
+      -4.8713857900338386e+04, -26.0195132]
+- name: H(111)
+  composition: {H: 1}
+  thermo:
+    model: NASA7
+    temperature-ranges: [300.0, 1000.0, 2000.0]
+    data:
+    - [-2.11741623, 0.0134081009, -1.47151219e-05, 7.24162766e-09, -1.21859987e-12,
+      -5635.393938305942, 8.88276129]
+    - [2.59294829, -1.5912164e-03, 2.9408572e-06, -1.65265916e-09, 3.08660582e-13,
+      -6813.306578305943, -14.9010092]
+- name: site(211)
+  composition: {}
+  thermo:
+    model: NASA7
+    temperature-ranges: [100.0, 1000.0, 5000.0]
+    data:
+    - [0, 0, 0, 0, 0, 0, 0]
+    - [0, 0, 0, 0, 0, 0, 0]
+- name: O(211)
+  composition: {O: 1}
+  thermo:
+    model: NASA7
+    temperature-ranges: [300.0, 1000.0, 2000.0]
+    data:
+    - [0.101373919, 0.0126481929, -2.28857237e-05, 1.91562633e-08, -6.10023317e-12,
+      -3.770961207810228e+04, -1.71316099]
+    - [2.91333272, -3.01652114e-04, 5.72894189e-07, -3.2613128e-10, 6.14297693e-14,
+      -3.822792157810228e+04, -14.9632324]
+- name: OC(211)
+  composition: {C: 1, O: 1}
+  thermo:
+    model: NASA7
+    temperature-ranges: [300.0, 1000.0, 2000.0]
+    data:
+    - [2.84518624, 8.17379754e-03, -1.22849931e-05, 1.01664294e-08, -3.38891588e-12,
+      -3.1253304012062083e+04, -12.5178442]
+    - [5.50076667, -1.57317904e-03, 2.87668162e-06, -1.58344352e-09, 2.90678454e-13,
+      -3.1887738412062085e+04, -25.699079]
+- name: C(211)
+  composition: {C: 1}
+  thermo:
+    model: NASA7
+    temperature-ranges: [300.0, 1000.0, 2000.0]
+    data:
+    - [-1.25734407, 0.0165469423, -2.75545191e-05, 2.16984928e-08, -6.59943974e-12,
+      1.1762501906040196e+04, 4.35812434]
+    - [2.82654807, -6.52603353e-04, 1.22240815e-06, -6.92179219e-10, 1.29958507e-13,
+      1.0937861846040196e+04, -15.2601134]
+- name: CO2(211)
+  composition: {C: 1, O: 2}
+  thermo:
+    model: NASA7
+    temperature-ranges: [300.0, 1000.0, 2000.0]
+    data:
+    - [1.99076174, 0.0144485083, -1.67866821e-05, 1.02612517e-08, -2.6353416e-12,
+      -5.922973229016436e+04, -2.87205995]
+    - [7.26542581, -2.55719296e-03, 4.69906338e-06, -2.61237089e-09, 4.83572781e-13,
+      -6.0568838090164354e+04, -29.533841]
+- name: H(211)
+  composition: {H: 1}
+  thermo:
+    model: NASA7
+    temperature-ranges: [300.0, 1000.0, 2000.0]
+    data:
+    - [-1.96041266, 0.0131107389, -1.47498706e-05, 7.64159601e-09, -1.43673615e-12,
+      -5669.368157508923, 8.12464664]
+    - [2.59933408, -1.55350266e-03, 2.87116163e-06, -1.61276787e-09, 3.01090339e-13,
+      -6804.645857508924, -14.8689112]
+- name: site(100)
+  composition: {}
+  thermo:
+    model: NASA7
+    temperature-ranges: [100.0, 1000.0, 5000.0]
+    data:
+    - [0, 0, 0, 0, 0, 0, 0]
+    - [0, 0, 0, 0, 0, 0, 0]
+- name: O(100)
+  composition: {O: 1}
+  thermo:
+    model: NASA7
+    temperature-ranges: [300.0, 1000.0, 2000.0]
+    data:
+    - [0.668997058, 0.0104977158, -1.93981691e-05, 1.64771852e-08, -5.30333069e-12,
+      -3.359962843393622e+04, -4.23903712]
+    - [2.93674276, -2.11596344e-04, 4.04525698e-07, -2.30803441e-10, 4.35296172e-14,
+      -3.400599113393622e+04, -14.8634903]
+- name: OC(100)
+  composition: {C: 1, O: 1}
+  thermo:
+    model: NASA7
+    temperature-ranges: [300.0, 1000.0, 2000.0]
+    data:
+    - [3.39397342, 5.6290022e-03, -6.49711137e-06, 4.41252666e-09, -1.33235523e-12,
+      -2.9179649939629315e+04, -15.3009494]
+    - [5.59807438, -1.3527838e-03, 2.48251084e-06, -1.37572976e-09, 2.53964009e-13,
+      -2.9756265139629315e+04, -26.5015256]
+- name: C(100)
+  composition: {C: 1}
+  thermo:
+    model: NASA7
+    temperature-ranges: [300.0, 1000.0, 2000.0]
+    data:
+    - [-1.25483974, 0.0166096017, -2.77511985e-05, 2.19094017e-08, -6.67687086e-12,
+      3160.8999543069017, 4.33140289]
+    - [2.82845012, -6.44297444e-04, 1.20727227e-06, -6.83711611e-10, 1.28380944e-13,
+      2338.964034306902, -15.2705756]
+- name: CO2(100)
+  composition: {C: 1, O: 2}
+  thermo:
+    model: NASA7
+    temperature-ranges: [300.0, 1000.0, 2000.0]
+    data:
+    - [2.71670271, 0.0112469061, -1.33965043e-05, 9.1673653e-09, -2.68007491e-12,
+      -4.971956977356551e+04, -3.40051636]
+    - [7.0411327, -2.90222603e-03, 5.26866564e-06, -2.87868394e-09, 5.25506444e-13,
+      -5.082076107356551e+04, -25.242119]
+- name: H(100)
+  composition: {H: 1}
+  thermo:
+    model: NASA7
+    temperature-ranges: [300.0, 1000.0, 2000.0]
+    data:
+    - [-1.48617897, 0.0178288417, -3.0217188e-05, 2.41278802e-08, -7.4193568e-12,
+      -5913.568506962851, 5.18433423]
+    - [2.8255779, -6.48667121e-04, 1.21724756e-06, -6.89702251e-10, 1.29541992e-13,
+      -6770.10031696285, -15.4546332]
+- name: site(110)
+  composition: {}
+  thermo:
+    model: NASA7
+    temperature-ranges: [100.0, 1000.0, 5000.0]
+    data:
+    - [0, 0, 0, 0, 0, 0, 0]
+    - [0, 0, 0, 0, 0, 0, 0]
+- name: O(110)
+  composition: {O: 1}
+  thermo:
+    model: NASA7
+    temperature-ranges: [300.0, 1000.0, 2000.0]
+    data:
+    - [0.0468621365, 0.0124843994, -2.2101002e-05, 1.82124482e-08, -5.73312231e-12,
+      -2.897157413278758e+04, -0.925058794]
+    - [2.90337972, -3.4656432e-04, 6.54885675e-07, -3.72138089e-10, 7.00224179e-14,
+      -2.9512388132787582e+04, -14.4600874]
+- name: OC(110)
+  composition: {C: 1, O: 1}
+  thermo:
+    model: NASA7
+    temperature-ranges: [300.0, 1000.0, 2000.0]
+    data:
+    - [2.82400742, 8.22905134e-03, -1.22438785e-05, 1.00328004e-08, -3.32315252e-12,
+      -3.0287396726379287e+04, -10.8858217]
+    - [5.50817819, -1.56170089e-03, 2.85750031e-06, -1.57439308e-09, 2.892436e-13,
+      -3.0930665126379285e+04, -24.2213882]
+- name: C(110)
+  composition: {C: 1}
+  thermo:
+    model: NASA7
+    temperature-ranges: [300.0, 1000.0, 2000.0]
+    data:
+    - [-0.802275874, 0.0162513063, -2.89888968e-05, 2.40188741e-08, -7.59141361e-12,
+      9716.672506408295, 2.03019198]
+    - [2.87941509, -4.28521538e-04, 8.11047842e-07, -4.61148292e-10, 8.68010233e-14,
+      9025.943236408295, -15.3817189]
+- name: CO2(110)
+  composition: {C: 1, O: 2}
+  thermo:
+    model: NASA7
+    temperature-ranges: [300.0, 1000.0, 2000.0]
+    data:
+    - [2.0906068, 0.0140746384, -1.60771306e-05, 9.62001993e-09, -2.41739788e-12,
+      -5.274454045916686e+04, -2.523191]
+    - [7.27801335, -2.52228283e-03, 4.63555729e-06, -2.57785614e-09, 4.77304925e-13,
+      -5.406718725916686e+04, -28.7736657]
+- name: H(110)
+  composition: {H: 1}
+  thermo:
+    model: NASA7
+    temperature-ranges: [300.0, 1000.0, 2000.0]
+    data:
+    - [0.0855425711, 2.74028953e-03, 4.58510455e-06, -8.42936697e-09, 3.5844396e-12,
+      -5582.455602739705, -0.413770664]
+    - [2.56280759, -1.66121357e-03, 3.05348094e-06, -1.70635588e-09, 3.1729019e-13,
+      -6375.750762739705, -13.7830126]
+
+surface1-reactions:
+- equation: site(111) + site(111) + H2 <=> H(111) + H(111)  # Reaction 1
+  sticking-coefficient: {A: 0.1, b: 0.0, Ea: 3.8}
+  id: Ni(111)
+- equation: site(111) + CO2 <=> CO2(111)  # Reaction 2
+  sticking-coefficient: {A: 7.0e-03, b: 0.0, Ea: 0}
+  id: Ni(111)
+- equation: site(111) + CO <=> OC(111)  # Reaction 3
+  sticking-coefficient: {A: 0.8, b: 0.0, Ea: 0.0}
+  id: Ni(111)
+- equation: site(111) +  CO2(111) <=> OC(111) + O(111)  # Reaction 4
+  id: Ni(111)
+  rate-constant: {A: 4.156e+19, b: 0, Ea: 50}
+- equation: O(111) + C(111) <=> OC(111) + site(111)  # Reaction 5
+  id: Ni(111)
+  rate-constant: {A: 7.287e+21, b: 0, Ea: 153}
+
+surface2-reactions:
+- equation: site(211) + site(211) + H2 <=> H(211) + H(211)  # Reaction 6
+  sticking-coefficient: {A: 0.1, b: 0.0, Ea: 3.8}
+  id: Ni(211)
+- equation: site(211) + CO2 <=> CO2(211)  # Reaction 7
+  sticking-coefficient: {A: 0.14, b: 0.0, Ea: 0}
+  id: Ni(211)
+- equation: site(211) + CO <=> OC(211)  # Reaction 8
+  sticking-coefficient: {A: 0.8, b: 0.0, Ea: 0.0}
+  id: Ni(211)
+- equation: site(211) +  CO2(211) <=> OC(211) + O(211)  # Reaction 9
+  id: Ni(211)
+  rate-constant: {A: 1.784e+20, b: 0, Ea: 90}
+- equation: O(211) + C(211) <=> OC(211) + site(211)  # Reaction 10
+  id: Ni(211)
+  rate-constant: {A: 7.53e+21, b: 0, Ea: 168}
+
+surface3-reactions:
+- equation: site(100) + site(100) + H2 <=> H(100) + H(100)  # Reaction 11
+  sticking-coefficient: {A: 0.1, b: 0.0, Ea: 3.8}
+  id: Ni(100)
+- equation: site(100) + CO2 <=> CO2(100)  # Reaction 12
+  sticking-coefficient: {A: 7.0e-03, b: 0.0, Ea: 0}
+  id: Ni(100)
+- equation: site(100) + CO <=> OC(100)  # Reaction 13
+  sticking-coefficient: {A: 0.8, b: 0.0, Ea: 0.0}
+  id: Ni(100)
+- equation: site(100) +  CO2(100) <=> OC(100) + O(100)  # Reaction 14
+  id: Ni(100)
+  rate-constant: {A: 5.397e+19, b: 0, Ea: 15}
+- equation: O(100) + C(100) <=> OC(100) + site(100)  # Reaction 15
+  id: Ni(100)
+  rate-constant: {A: 7.546e+21, b: 0.0, Ea: 209}
+
+surface4-reactions:
+- equation: site(110) + site(110) + H2 <=> H(110) + H(110)  # Reaction 16
+  sticking-coefficient: {A: 0.1, b: 0.0, Ea: 3.8}
+  id: Ni(110)
+- equation: site(110) + CO2 <=> CO2(110)  # Reaction 17
+  sticking-coefficient: {A: 0.14, b: 0.0, Ea: 0}
+  id: Ni(110)
+- equation: site(110) + CO <=> OC(110)  # Reaction 18
+  sticking-coefficient: {A: 0.8, b: 0.0, Ea: 0.0}
+  id: Ni(110)
+- equation: site(110) +  CO2(110) <=> OC(110) + O(110)  # Reaction 19
+  id: Ni(110)
+  rate-constant: {A: 5.4956e+20, b: 0, Ea: 39}
+- equation: O(110) + C(110) <=> OC(110) + site(110)  # Reaction 20
+  id: Ni(110)
+  rate-constant: {A: 2.088e+22, b: 0.0, Ea: 161}
+  
+edge12-reactions:
+- equation: O(111) + site(211) <=> site(111) + O(211)  # Reaction 1
+  id: edge12
+  rate-constant: {A: 1e+12, b: 0, Ea: 48}
+- equation: H(111) + site(211) <=> site(111) + H(211)  # Reaction 2
+  id: edge12
+  rate-constant: {A: 1e+12, b: 0, Ea: 13}
+- equation: OC(111) + site(211) <=> site(111) + OC(211)  # Reaction 3
+  id: edge12
+  rate-constant: {A: 1e+12, b: 0, Ea: 10}
+- equation: C(111) + site(211) <=> site(111) + C(211)  # Reaction 4
+  id: edge12
+  rate-constant: {A: 1e+12, b: 0, Ea: 50}
+
+edge23-reactions:
+- equation: O(211) + site(100) <=> site(211) + O(100)  # Reaction 1
+  id: edge23
+  rate-constant: {A: 1e+12, b: 0, Ea: 61}
+- equation: H(211) + site(100) <=> site(211) + H(100)  # Reaction 2
+  id: edge23
+  rate-constant: {A: 1e+12, b: 0, Ea: 13}
+- equation: OC(100) + site(211) <=> site(100) + OC(211)  # Reaction 3 (Reversed direction)
+  id: edge23
+  rate-constant: {A: 1e+12, b: 0, Ea: 10}
+- equation: C(211) + site(100) <=> site(211) + C(100)  # Reaction 4
+  id: edge23
+  rate-constant: {A: 1e+12, b: 0, Ea: 196}
+  
